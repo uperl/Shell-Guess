@@ -9,17 +9,26 @@ use File::Spec;
 
 sub running_shell
 {
+  #if($^O eq 'Win32' || $^O eq 'cygwin')
+  #{
+  #  my $pl_shell = eval {
+  #    require Win32::Process::List;
+  #    Win32::Process::List->new->{processes}->{getppid()};
+  #  };
+  #}
+
   if($^O eq 'MSWin32')
   {
+    # TODO detect powershell
     if($ENV{ComSpec} =~ /cmd\.exe$/)
     { return __PACKAGE__->cmd_shell }
     else
     { return __PACKAGE__->command_shell }
   }
-  
+
   if($^O eq 'VMS')
   {
-    die 'FIXME';
+    __PACKAGE__->dcl_shell;
   }
 
   my $shell = eval {
@@ -36,7 +45,7 @@ sub login_shell
 {
   shift; # class ignored
   my $shell;
-  
+
   if($^O eq 'MSWin32')
   {
     if(Win32::IsWin95)
@@ -44,20 +53,20 @@ sub login_shell
     else
     { return __PACKAGE__->cmd_shell }
   }
-  
+
   if($^O eq 'VMS')
   {
-    die 'FIXME';
+    __PACKAGE__->dcl_shell;
   }
-  
+
   eval {
     my $pw_shell = (getpwnam(shift||$ENV{USER}||$ENV{USERNAME}||$ENV{LOGNAME}))[-1];
     $shell = _unixy_shells($pw_shell);
     $shell = _unixy_shells(readlink $pw_shell) if !defined($shell) && -l $pw_shell;
   };
-  
+
   $shell = __PACKAGE__->bourne_shell unless defined $shell;
-  
+
   return $shell;
 }
 
@@ -72,11 +81,21 @@ sub tc_shell      { bless { c => 1, tc => 1, unix => 1,        name => 'tc'     
 
 foreach my $type (qw( cmd command dcl bash korn c win32 unix vms bourne tc ))
 {
-  eval qq{ sub is_$type { shift->{$type} || 0 } };
+  eval qq{
+    sub is_$type
+    {
+      my \$self = ref \$_[0] ? shift : __PACKAGE__->running_shell;
+      \$self->{$type} || 0;
+    }
+  };
   die $@ if $@;
 }
 
-sub name { shift->{name} }
+sub name
+{
+  my $self = ref $_[0] ? shift : __PACKAGE__->running_shell;
+  $self->{name};
+}
 
 sub _unixy_shells
 {
