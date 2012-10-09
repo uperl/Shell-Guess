@@ -36,13 +36,28 @@ guessing an arbitrary user's login shell:
 
 =head1 DESCRIPTION
 
-TODO
+Shell::Guess makes a reasonably aggressive attempt to determine the shell
+being employed by the user, either the shell that executed the perl script
+directly (the "running" shell), or the users' default login shell (the 
+"login" shell).  It does this by a variety of means available to it, depending 
+on the platform that it is running on, for example on Linux it will use the
+/proc filesystem to determine the running shell and getpwent to determine the
+login shell.  On Windows it will use the ComSpec environment variable to 
+differentiate between C<command.com> and C<cmd.exe>.  If Sell::Guess does
+not know enough about your platform to make an educated guess, it will use
+a platform fallback (bourne shell on UNIX, command.com on Windows 95, cmd.exe on
+Windows NT and dcl on OpenVMS, for example).
 
 =head1 CLASS METHODS
 
+These class methods return an instance of Shell::Guess, which can then be 
+interrogated by the instance methods in the next section below.
+
 =head2 Shell::Guess->running_shell
 
-TODO
+Returns an instance of Shell::Guess based on the shell which directly
+started the current Perl script.  If the running shell cannot be determined,
+it will return the login shell.
 
 =cut
 
@@ -83,9 +98,11 @@ sub running_shell
   $shell || __PACKAGE__->login_shell;
 }
 
-=head2 Shell::Guess->login_shell
+=head2 Shell::Guess->login_shell( [ $username ] )
 
-TODO
+Returns an instance of Shell::Guess for the given user.  If no username is specified then
+the current user will be used.  If no shell can be guessed then a reasonable fallback
+will be chosen based on your platform.
 
 =cut
 
@@ -120,49 +137,185 @@ sub login_shell
 
 =head2 Shell::Guess-E<gt>bash_shell
 
-TODO
+Returns an instance of Shell::Guess for bash.
 
-=head2 Shell::Guess-E<gt>c_shell
+The following instance methods will return:
 
-TODO
+=over 4
+
+=item * $shell-E<gt>name = bash
+
+=item * $shell-E<gt>is_bash = 1
+
+=item * $shell-E<gt>is_bourne = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
+sub bash_shell    { bless { bash => 1, bourne => 1, unix => 1, name => 'bash'    }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>bourne_shell
 
-TODO
+Returns an instance of Shell::Guess for the bourne shell.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = bourne
+
+=item * $shell-E<gt>is_bourne = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
+sub bourne_shell  { bless { bourne => 1, unix => 1,            name => 'bourne'  }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>c_shell
 
-TODO
+Returns an instance of Shell::Guess for c shell.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = c
+
+=item * $shell-E<gt>is_c = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
+sub c_shell       { bless { c => 1, unix => 1,                 name => 'c'       }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>cmd_shell
 
-TODO
+Returns an instance of Shell::Guess for the Windows NT cmd shell (cmd.exe).
 
-=head2 Shell::Guess-E<gt>command_shell
+The following instance methods will return:
 
-TODO
+=over 4
 
-=head2 Shell::Guess-E<gt>dcl_shell
+=item * $shell-E<gt>name = cmd
 
-TODO
+=item * $shell-E<gt>is_cmd = 1
 
-=head2 Shell::Guess-E<gt>korn_shell
+=item * $shell-E<gt>is_win32 = 1
 
-TODO
+=back
 
-=head2 Shell::Guess-E<gt>tc_shell
-
-TODO
+All other instance methods will return false
 
 =cut
 
 sub cmd_shell     { bless { cmd => 1, win32 => 1,              name => 'cmd'     }, __PACKAGE__ }
+
+=head2 Shell::Guess-E<gt>command_shell
+
+Returns an instance of Shell::Guess for the Windows 95 command shell (command.com).
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = command
+
+=item * $shell-E<gt>is_command = 1
+
+=item * $shell-E<gt>is_win32 = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
 sub command_shell { bless { command => 1, win32 => 1,          name => 'command' }, __PACKAGE__ }
+
+=head2 Shell::Guess-E<gt>dcl_shell
+
+Returns an instance of Shell::Guess for the OpenVMS dcl shell.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = dcl
+
+=item * $shell-E<gt>is_dcl = 1
+
+=item * $shell-E<gt>is_vms = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
 sub dcl_shell     { bless { dcl => 1, vms => 1,                name => 'dcl'     }, __PACKAGE__ }
-sub bash_shell    { bless { bash => 1, bourne => 1, unix => 1, name => 'bash'    }, __PACKAGE__ }
-sub bourne_shell  { bless { bourne => 1, unix => 1,            name => 'bourne'  }, __PACKAGE__ }
+
+=head2 Shell::Guess-E<gt>korn_shell
+
+Returns an instance of Shell::Guess for the korn shell.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = korn
+
+=item * $shell-E<gt>is_korn = 1
+
+=item * $shell-E<gt>is_bourne = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
 sub korn_shell    { bless { korn => 1, bourne => 1, unix => 1, name => 'korn'    }, __PACKAGE__ }
-sub c_shell       { bless { c => 1, unix => 1,                 name => 'c'       }, __PACKAGE__ }
+
+=head2 Shell::Guess-E<gt>tc_shell
+
+Returns an instance of Shell::Guess for tcsh.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = tc
+
+=item * $shell-E<gt>is_tc = 1
+
+=item * $shell-E<gt>is_c = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
+
 sub tc_shell      { bless { c => 1, tc => 1, unix => 1,        name => 'tc'      }, __PACKAGE__ }
 
 =head1 INSTANCE METHODS
@@ -179,47 +332,47 @@ is the same as
 
 =head2 $shell-E<gt>is_bash
 
-TODO
+Returns true if the shell is bash.
 
 =head2 $shell-E<gt>is_bourne
 
-TODO
+Returns true if the shell is the bourne shell, or a shell which supports bourne syntax (e.g. bash or korn).
 
 =head2 $shell-E<gt>is_c
 
-TODO
+Returns true if the shell is csh, or a shell which supports csh syntax (e.g. tcsh).
 
 =head2 $shell-E<gt>is_cmd
 
-TODO
+Returns true if the shell is the Windows command.com shell.
 
 =head2 $shell-E<gt>is_command
 
-TODO
+Returns true if the shell is the Windows cmd.com shell.
 
 =head2 $shell-E<gt>is_dcl
 
-TODO
+Returns true if the shell is the OpenVMS dcl shell.
 
 =head2 $shell-E<gt>is_korn
 
-TODO
+Returns true if the shell is the korn shell.
 
 =head2 $shell-E<gt>is_tc
 
-TODO
+Returns true if the shell is tcsh.
 
 =head2 $shell-E<gt>is_unix
 
-TODO
+Returns true if the shell is traditionally a UNIX shell (e.g. bourne, bash, korn)
 
 =head2 $shell-E<gt>is_vms
 
-TODO
+Returns true if the shell is traditionally an OpenVMS shell (e.g. dcl)
 
 =head2 $shell-E<gt>is_win32
 
-TODO
+Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe)
 
 =cut
 
@@ -237,7 +390,7 @@ foreach my $type (qw( cmd command dcl bash korn c win32 unix vms bourne tc ))
 
 =head2 $shell-E<gt>name
 
-TODO
+Returns the name of the shell.
 
 =cut
 
@@ -271,7 +424,7 @@ sub _unixy_shells
 Shell::Guess shouldn't ever die or crash, instead it will attempt to make a guess or use a fallback 
 about either the login or running shell even on unsupported operating systems.  The fallback is the 
 most common shell on the particular platform that you are using, so on UNIXy platforms the fallback 
-is bourne, and on VMS the fallback is VMS.
+is bourne, and on OpenVMS the fallback is dcl.
 
 These are the operating systems that have been tested in development and are most likely to guess
 reliably.
@@ -288,6 +441,6 @@ reliably.
 
 =back
 
-Patcher are welcome to make other platforms work more reliably.
+Patches are welcome to make other platforms work more reliably.
 
 =cut

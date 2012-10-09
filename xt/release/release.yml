@@ -1,1 +1,14 @@
---- {}
+---
+pod_spelling_system:
+  stopwords:
+    - login
+    - OpenVMS
+    - bourne
+    - UNIXy
+    - dcl
+    - korn
+    - cmd.exe
+    - command.com
+    - ComSpec
+    - cmd
+    - tc
