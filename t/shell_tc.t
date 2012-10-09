@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 12;
+use Test::More tests => 14;
 use Shell::Guess;
 
 my $shell = eval { Shell::Guess->tc_shell };
@@ -30,3 +30,6 @@ is eval { $shell->is_bourne  }, 0, "bourne = 0";
 diag $@ if $@;
 is eval { $shell->is_tc      }, 1, "tc = 1";
 diag $@ if $@;
+is eval { $shell->is_power   }, 0, "power = 0";
+diag $@ if $@;
+pass "14th test";

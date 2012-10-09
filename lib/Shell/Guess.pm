@@ -61,22 +61,38 @@ it will return the login shell.
 
 =cut
 
+sub _win32_getppid
+{
+  require Win32::Process::Info;
+  Win32::Process::Info->import;
+  my $my_pid = Win32::GetCurrentProcessId();
+  my($parent_pid) = map { $_->{ParentProcessId} } grep { $_->{ProcessId} == $my_pid } Win32::Process::Info->new->GetProcInfo;
+  return $parent_pid;
+}
+
 sub running_shell
 {
-  ## TODO use Win32::Process::List
-  ## maybe a nice idea, but without a getppid replacement
-  ## won't be of much use.
-  #if($^O eq 'Win32' || $^O eq 'cygwin')
-  #{
-  #  my $pl_shell = eval {
-  #    require Win32::Process::List;
-  #    Win32::Process::List->new->{processes}->{getppid()};
-  #  };
-  #}
+  if($^O eq 'MSWin32')
+  {
+    my $shell_name = eval {
+      require Win32::Process::List;
+      my $parent_pid = _win32_getppid();
+      Win32::Process::List->new->{processes}->[0]->{$parent_pid}
+    };
+    if(defined $shell_name)
+    {
+      print "shell_name = $shell_name\n";
+      if($shell_name =~ /cmd\.exe$/)
+      { return __PACKAGE__->cmd_shell }
+      elsif($shell_name =~ /powershell\.exe$/)
+      { return __PACKAGE__->power_shell }
+      elsif($shell_name =~ /command\.com$/)
+      { return __PACKAGE__->command_shell }
+    }
+  }
 
   if($^O eq 'MSWin32')
   {
-    # TODO detect powershell
     if($ENV{ComSpec} =~ /cmd\.exe$/)
     { return __PACKAGE__->cmd_shell }
     else
@@ -294,6 +310,28 @@ All other instance methods will return false
 
 sub korn_shell    { bless { korn => 1, bourne => 1, unix => 1, name => 'korn'    }, __PACKAGE__ }
 
+=head2 Shell::Guess-E<gt>power_shell
+
+Returns an instance of Shell::Guess for Windows PowerShell.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = power
+
+=item * $shell-E<gt>is_power = 1
+
+=item * $shell-E<gt>is_win32 = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
+sub power_shell   { bless { power => 1, win32 => 1,            name => 'power'   }, __PACKAGE__ }
+
 =head2 Shell::Guess-E<gt>tc_shell
 
 Returns an instance of Shell::Guess for tcsh.
@@ -315,7 +353,6 @@ The following instance methods will return:
 All other instance methods will return false
 
 =cut
-
 
 sub tc_shell      { bless { c => 1, tc => 1, unix => 1,        name => 'tc'      }, __PACKAGE__ }
 
@@ -359,6 +396,10 @@ Returns true if the shell is the OpenVMS dcl shell.
 
 Returns true if the shell is the korn shell.
 
+=head2 $shell-E<gt>is_power
+
+Returns true if the shell is Windows PowerShell.
+
 =head2 $shell-E<gt>is_tc
 
 Returns true if the shell is tcsh.
@@ -377,7 +418,7 @@ Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe
 
 =cut
 
-foreach my $type (qw( cmd command dcl bash korn c win32 unix vms bourne tc ))
+foreach my $type (qw( cmd command dcl bash korn c win32 unix vms bourne tc power ))
 {
   eval qq{
     sub is_$type
@@ -438,7 +479,14 @@ reliably.
 
 =item * Windows (Strawberry Perl)
 
+Can detect PowerShell, but only if optional prereqs L<Win32::Process::Info> and L<Win32::Process::List>
+are installed.  Otherwise will use ComSpec environment to guess the running shell.  On Windows NT
+style operating systems the login shell will be cmd and on Windows 95 style operating systems the
+login shell will be command.
+
 =item * OpenVMS
+
+Always detected as dcl (a more nuanced view of OpenVMS is probably possible, patches welcome).
 
 =back
 

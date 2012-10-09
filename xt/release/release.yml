@@ -12,3 +12,5 @@ pod_spelling_system:
     - ComSpec
     - cmd
     - tc
+    - PowerShell
+    - prereqs
