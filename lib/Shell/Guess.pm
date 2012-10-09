@@ -11,7 +11,10 @@ sub running_shell
 {
   if($^O eq 'MSWin32')
   {
-    die 'FIXME';
+    if($ENV{ComSpec} =~ /cmd\.exe$/)
+    { return __PACKAGE__->cmd_shell }
+    else
+    { return __PACKAGE__->command_shell }
   }
   
   if($^O eq 'VMS')
@@ -36,7 +39,10 @@ sub login_shell
   
   if($^O eq 'MSWin32')
   {
-    die 'FIXME';
+    if(Win32::IsWin95)
+    { return __PACKAGE__->command_shell }
+    else
+    { return __PACKAGE__->cmd_shell }
   }
   
   if($^O eq 'VMS')
@@ -90,3 +96,21 @@ sub _unixy_shells
 }
 
 1;
+
+=head1 SUPPORTED SYSTEMS
+
+Shell::Guess will attempt to make a guess or use a fallback about either the login or running shell
+even on unsupported operating systems.  That being said, these are the operating systems that have
+been tested in development and are most likely to work:
+
+=over 4
+
+=item * Linux
+
+=item * Cygwin
+
+=item * Windows (Strawberry Perl)
+
+=cut
+
+=cut
