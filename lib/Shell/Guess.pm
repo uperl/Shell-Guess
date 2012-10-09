@@ -104,14 +104,19 @@ sub running_shell
     return __PACKAGE__->dcl_shell;
   }
 
-  ## TODO support UNIXy systems without /proc
   my $shell = eval {
     open my $fh, '<', File::Spec->catfile('', 'proc', getppid, 'cmdline');
     my $command_line = <$fh>;
     close $fh;
     $command_line =~ s/\0$//;
     _unixy_shells($command_line);
+  }
+  
+  || eval {
+    require Unix::Process;
+    _unixy_shells(Unix::Process->cmd(getppid));
   };
+  
   $shell || __PACKAGE__->login_shell;
 }
 
@@ -489,6 +494,9 @@ login shell will be command.
 Always detected as dcl (a more nuanced view of OpenVMS is probably possible, patches welcome).
 
 =back
+
+UNIXy platforms without a /proc filesystem will use L<Unix::Process> which will execute ps to determine
+the running shell.
 
 Patches are welcome to make other platforms work more reliably.
 
