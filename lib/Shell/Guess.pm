@@ -28,7 +28,7 @@ sub running_shell
 
   if($^O eq 'VMS')
   {
-    __PACKAGE__->dcl_shell;
+    return __PACKAGE__->dcl_shell;
   }
 
   my $shell = eval {
@@ -48,7 +48,7 @@ sub login_shell
 
   if($^O eq 'MSWin32')
   {
-    if(Win32::IsWin95)
+    if(Win32::IsWin95())
     { return __PACKAGE__->command_shell }
     else
     { return __PACKAGE__->cmd_shell }
@@ -56,7 +56,7 @@ sub login_shell
 
   if($^O eq 'VMS')
   {
-    __PACKAGE__->dcl_shell;
+    return __PACKAGE__->dcl_shell;
   }
 
   eval {
@@ -129,6 +129,8 @@ been tested in development and are most likely to work:
 =item * Cygwin
 
 =item * Windows (Strawberry Perl)
+
+=item * OpenVMS
 
 =cut
 
