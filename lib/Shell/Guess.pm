@@ -9,7 +9,7 @@ use File::Spec;
 
 =head1 SYNOPSIS
 
-guessing and using shell which called the Perl script:
+guessing shell which called the Perl script:
 
  use Shell::Guess;
  my $shell = Shell::Guess->running_shell;
