@@ -6,6 +6,20 @@ Shell::Guess - make an educated guess about the shell in use
 
 version 0.01
 
+=head1 SUPPORTED SYSTEMS
+
+Shell::Guess will attempt to make a guess or use a fallback about either the login or running shell
+even on unsupported operating systems.  That being said, these are the operating systems that have
+been tested in development and are most likely to work:
+
+=over 4
+
+=item * Linux
+
+=item * Cygwin
+
+=item * Windows (Strawberry Perl)
+
 =head1 AUTHOR
 
 Graham Ollis <plicease@wdlabs.com>
