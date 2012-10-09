@@ -88,6 +88,7 @@ sub running_shell
     return __PACKAGE__->dcl_shell;
   }
 
+  ## TODO support UNIXy systems without /proc
   my $shell = eval {
     open my $fh, '<', File::Spec->catfile('', 'proc', getppid, 'cmdline');
     my $command_line = <$fh>;
