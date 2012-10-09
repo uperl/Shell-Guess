@@ -105,7 +105,7 @@ sub running_shell
   }
 
   my $shell = eval {
-    open my $fh, '<', File::Spec->catfile('', 'proc', getppid, 'cmdline');
+    open(my $fh, '<', File::Spec->catfile('', 'proc', getppid, 'cmdline')) || die;
     my $command_line = <$fh>;
     close $fh;
     $command_line =~ s/\0$//;
@@ -114,7 +114,8 @@ sub running_shell
   
   || eval {
     require Unix::Process;
-    _unixy_shells(Unix::Process->cmd(getppid));
+    my($command) = map { s/\s+.*$//; $_ } Unix::Process->command(getppid);
+    _unixy_shells($command);
   };
   
   $shell || __PACKAGE__->login_shell;
@@ -481,6 +482,8 @@ reliably.
 =item * Linux
 
 =item * Cygwin
+
+=item * FreeBSD
 
 =item * Windows (Strawberry Perl)
 
