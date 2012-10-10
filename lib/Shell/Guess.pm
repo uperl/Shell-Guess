@@ -183,13 +183,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/bash
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub bash_shell    { bless { bash => 1, bourne => 1, unix => 1, name => 'bash'    }, __PACKAGE__ }
+sub bash_shell { bless { bash => 1, bourne => 1, unix => 1, name => 'bash', default_location => '/bin/bash' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>bourne_shell
 
@@ -205,13 +207,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/sh
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub bourne_shell  { bless { bourne => 1, unix => 1,            name => 'bourne'  }, __PACKAGE__ }
+sub bourne_shell { bless { bourne => 1, unix => 1, name => 'bourne', default_location => '/bin/sh' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>c_shell
 
@@ -227,13 +231,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/csh
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub c_shell       { bless { c => 1, unix => 1,                 name => 'c'       }, __PACKAGE__ }
+sub c_shell { bless { c => 1, unix => 1, name => 'c', default_location => '/bin/csh' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>cmd_shell
 
@@ -249,13 +255,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_win32 = 1
 
+=item * $shell-E<gt>default_location = C:\Windows\system32\cmd.exe
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub cmd_shell     { bless { cmd => 1, win32 => 1,              name => 'cmd'     }, __PACKAGE__ }
+sub cmd_shell { bless { cmd => 1, win32 => 1, name => 'cmd', default_location => 'C:\\Windows\\system32\\cmd.exe' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>command_shell
 
@@ -271,13 +279,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_win32 = 1
 
+=item * $shell-E<gt>default_location = C:\Windows\system32\command.com
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub command_shell { bless { command => 1, win32 => 1,          name => 'command' }, __PACKAGE__ }
+sub command_shell { bless { command => 1, win32 => 1, name => 'command', default_location => 'C:\\Windows\\system32\\command.com' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>dcl_shell
 
@@ -299,7 +309,7 @@ All other instance methods will return false
 
 =cut
 
-sub dcl_shell     { bless { dcl => 1, vms => 1,                name => 'dcl'     }, __PACKAGE__ }
+sub dcl_shell { bless { dcl => 1, vms => 1, name => 'dcl' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>korn_shell
 
@@ -317,13 +327,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/ksh
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub korn_shell    { bless { korn => 1, bourne => 1, unix => 1, name => 'korn'    }, __PACKAGE__ }
+sub korn_shell { bless { korn => 1, bourne => 1, unix => 1, name => 'korn', default_location => '/bin/ksh' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>power_shell
 
@@ -345,7 +357,7 @@ All other instance methods will return false
 
 =cut
 
-sub power_shell   { bless { power => 1, win32 => 1,            name => 'power'   }, __PACKAGE__ }
+sub power_shell { bless { power => 1, win32 => 1, name => 'power' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>tc_shell
 
@@ -363,13 +375,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/tcsh
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub tc_shell      { bless { c => 1, tc => 1, unix => 1,        name => 'tc'      }, __PACKAGE__ }
+sub tc_shell { bless { c => 1, tc => 1, unix => 1, name => 'tc', default_location => '/bin/tcsh' }, __PACKAGE__ }
 
 =head2 Shell::Guess-E<gt>z_shell
 
@@ -387,13 +401,15 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/zsh
+
 =back
 
 All other instance methods will return false
 
 =cut
 
-sub z_shell       { bless { z => 1, bourne => 1, unix => 1,    name => 'z'       }, __PACKAGE__ }
+sub z_shell { bless { z => 1, bourne => 1, unix => 1, name => 'z', default_location => '/bin/zsh' }, __PACKAGE__ }
 
 =head1 INSTANCE METHODS
 
@@ -483,6 +499,19 @@ sub name
 {
   my $self = ref $_[0] ? shift : __PACKAGE__->running_shell;
   $self->{name};
+}
+
+=head2 $shell-E<gt>default_location
+
+The usual location for this shell, for example /bin/sh for bourne shell
+and /bin/csh for c shell.  May not be defined for all shells.
+
+=cut
+
+sub default_location
+{
+  my $self = ref $_[0] ? shift : __PACKAGE__->running_shell;
+  $self->{default_location};
 }
 
 sub _unixy_shells

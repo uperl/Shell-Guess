@@ -34,3 +34,4 @@ is eval { $shell->is_power   }, 1, "power = 1";
 diag $@ if $@;
 is eval { $shell->is_z       }, 0, "z = 0";
 diag $@ if $@;
+

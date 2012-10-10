@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 14;
+use Test::More tests => 15;
 use Shell::Guess;
 
 my $shell = eval { Shell::Guess->korn_shell };
@@ -34,3 +34,5 @@ is eval { $shell->is_power   }, 0, "power = 0";
 diag $@ if $@;
 is eval { $shell->is_z       }, 0, "z = 0";
 diag $@ if $@;
+
+is $shell->default_location,  '/bin/ksh', 'default_location = /bin/ksh';

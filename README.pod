@@ -360,7 +360,7 @@ Patches are welcome to make other platforms work more reliably.
 
 =head1 AUTHOR
 
-Graham Ollis <plicease@wdlabs.com>
+Graham Ollis <plicease@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
