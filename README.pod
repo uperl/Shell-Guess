@@ -232,6 +232,26 @@ The following instance methods will return:
 
 All other instance methods will return false
 
+=head2 Shell::Guess-E<gt>z_shell
+
+Returns an instance of Shell::Guess for zsh.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = z
+
+=item * $shell-E<gt>is_z = 1
+
+=item * $shell-E<gt>is_bourne = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+All other instance methods will return false
+
 =head1 INSTANCE METHODS
 
 The normal way to call these is by calling them on the result of either
@@ -291,6 +311,10 @@ Returns true if the shell is traditionally an OpenVMS shell (e.g. dcl)
 =head2 $shell-E<gt>is_win32
 
 Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe)
+
+=head2 $shell-E<gt>is_z
+
+Returns true if the shell is zsh
 
 =head2 $shell-E<gt>name
 

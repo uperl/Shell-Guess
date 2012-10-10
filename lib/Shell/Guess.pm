@@ -504,8 +504,6 @@ sub _unixy_shells
   { return; }
 }
 
-# TODO: require Unix::Process if there is no /proc/$$
-
 1;
 
 =head1 CAVEATS
