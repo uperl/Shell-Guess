@@ -475,6 +475,7 @@ sub _unixy_shells
 }
 
 # TODO: require Unix::Process if there is no /proc/$$
+# TODO: zsh support
 
 1;
 
