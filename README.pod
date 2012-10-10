@@ -314,6 +314,8 @@ reliably.
 
 =item * FreeBSD
 
+=item * Mac OS X
+
 =item * Windows (Strawberry Perl)
 
 Can detect PowerShell, but only if optional prereqs L<Win32::Process::Info> and L<Win32::Process::List>

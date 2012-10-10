@@ -465,6 +465,9 @@ sub _unixy_shells
   { return; }
 }
 
+# FIXME: getpwent doesn't work on OS X
+# TODO: require Unix::Process if there is no /proc/$$
+
 1;
 
 =head1 CAVEATS
@@ -484,6 +487,8 @@ reliably.
 =item * Cygwin
 
 =item * FreeBSD
+
+=item * Mac OS X
 
 =item * Windows (Strawberry Perl)
 
