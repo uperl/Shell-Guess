@@ -81,7 +81,6 @@ sub running_shell
     };
     if(defined $shell_name)
     {
-      print "shell_name = $shell_name\n";
       if($shell_name =~ /cmd\.exe$/)
       { return __PACKAGE__->cmd_shell }
       elsif($shell_name =~ /powershell\.exe$/)
