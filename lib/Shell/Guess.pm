@@ -503,8 +503,8 @@ Always detected as dcl (a more nuanced view of OpenVMS is probably possible, pat
 
 =back
 
-UNIXy platforms without a /proc filesystem will use L<Unix::Process> which will execute ps to determine
-the running shell.
+UNIXy platforms without a /proc filesystem will use L<Unix::Process> if installed, which will execute 
+ps to determine the running shell.
 
 Patches are welcome to make other platforms work more reliably.
 
