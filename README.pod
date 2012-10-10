@@ -80,6 +80,8 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/bash
+
 =back
 
 All other instance methods will return false
@@ -97,6 +99,8 @@ The following instance methods will return:
 =item * $shell-E<gt>is_bourne = 1
 
 =item * $shell-E<gt>is_unix = 1
+
+=item * $shell-E<gt>default_location = /bin/sh
 
 =back
 
@@ -116,6 +120,8 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/csh
+
 =back
 
 All other instance methods will return false
@@ -134,6 +140,8 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_win32 = 1
 
+=item * $shell-E<gt>default_location = C:\Windows\system32\cmd.exe
+
 =back
 
 All other instance methods will return false
@@ -151,6 +159,8 @@ The following instance methods will return:
 =item * $shell-E<gt>is_command = 1
 
 =item * $shell-E<gt>is_win32 = 1
+
+=item * $shell-E<gt>default_location = C:\Windows\system32\command.com
 
 =back
 
@@ -190,6 +200,8 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/ksh
+
 =back
 
 All other instance methods will return false
@@ -228,6 +240,8 @@ The following instance methods will return:
 
 =item * $shell-E<gt>is_unix = 1
 
+=item * $shell-E<gt>default_location = /bin/tcsh
+
 =back
 
 All other instance methods will return false
@@ -247,6 +261,8 @@ The following instance methods will return:
 =item * $shell-E<gt>is_bourne = 1
 
 =item * $shell-E<gt>is_unix = 1
+
+=item * $shell-E<gt>default_location = /bin/zsh
 
 =back
 
@@ -319,6 +335,11 @@ Returns true if the shell is zsh
 =head2 $shell-E<gt>name
 
 Returns the name of the shell.
+
+=head2 $shell-E<gt>default_location
+
+The usual location for this shell, for example /bin/sh for bourne shell
+and /bin/csh for c shell.  May not be defined for all shells.
 
 =head1 CAVEATS
 
