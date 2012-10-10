@@ -147,8 +147,17 @@ sub login_shell
     return __PACKAGE__->dcl_shell;
   }
 
+  my $username = shift || $ENV{USER} || $ENV{USERNAME} || $ENV{LOGNAME};
+
+  if($^O eq 'darwin')
+  {
+    my $command = `dscl . -read /Users/$username UserShell`;
+    $shell = _unixy_shells($command);
+    return $shell if defined $shell;
+  }
+
   eval {
-    my $pw_shell = (getpwnam(shift||$ENV{USER}||$ENV{USERNAME}||$ENV{LOGNAME}))[-1];
+    my $pw_shell = (getpwnam($username))[-1];
     $shell = _unixy_shells($pw_shell);
     $shell = _unixy_shells(readlink $pw_shell) if !defined($shell) && -l $pw_shell;
   };
@@ -465,7 +474,6 @@ sub _unixy_shells
   { return; }
 }
 
-# FIXME: getpwent doesn't work on OS X
 # TODO: require Unix::Process if there is no /proc/$$
 
 1;
