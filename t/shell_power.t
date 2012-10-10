@@ -32,4 +32,5 @@ is eval { $shell->is_tc      }, 0, "tc = 0";
 diag $@ if $@;
 is eval { $shell->is_power   }, 1, "power = 1";
 diag $@ if $@;
-pass "14th test";
+is eval { $shell->is_z       }, 0, "z = 0";
+diag $@ if $@;

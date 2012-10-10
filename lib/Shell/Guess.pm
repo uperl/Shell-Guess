@@ -371,6 +371,30 @@ All other instance methods will return false
 
 sub tc_shell      { bless { c => 1, tc => 1, unix => 1,        name => 'tc'      }, __PACKAGE__ }
 
+=head2 Shell::Guess-E<gt>z_shell
+
+Returns an instance of Shell::Guess for zsh.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = z
+
+=item * $shell-E<gt>is_z = 1
+
+=item * $shell-E<gt>is_bourne = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+All other instance methods will return false
+
+=cut
+
+sub z_shell       { bless { z => 1, bourne => 1, unix => 1,    name => 'z'       }, __PACKAGE__ }
+
 =head1 INSTANCE METHODS
 
 The normal way to call these is by calling them on the result of either
@@ -431,9 +455,13 @@ Returns true if the shell is traditionally an OpenVMS shell (e.g. dcl)
 
 Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe)
 
+=head2 $shell-E<gt>is_z
+
+Returns true if the shell is zsh
+
 =cut
 
-foreach my $type (qw( cmd command dcl bash korn c win32 unix vms bourne tc power ))
+foreach my $type (qw( cmd command dcl bash korn c win32 unix vms bourne tc power z ))
 {
   eval qq{
     sub is_$type
@@ -468,6 +496,8 @@ sub _unixy_shells
   { return __PACKAGE__->korn_shell   }
   elsif($shell =~ /bash$/)
   { return __PACKAGE__->bash_shell   }
+  elsif($shell =~ /zsh$/)
+  { return __PACKAGE__->z_shell      }
   elsif($shell =~ /sh$/)
   { return __PACKAGE__->bourne_shell }
   else
@@ -475,7 +505,6 @@ sub _unixy_shells
 }
 
 # TODO: require Unix::Process if there is no /proc/$$
-# TODO: zsh support
 
 1;
 
