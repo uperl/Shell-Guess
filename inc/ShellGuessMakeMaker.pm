@@ -23,10 +23,13 @@ override _build_WriteMakefile_dump => sub {
   $dump .= q{
 
     use File::Spec;
-
-    unless(-e File::Spec->catfile('', 'proc', getppid, 'cmdline'))
+    
+    if(eval { getppid; 1 })
     {
-      $WriteMakefileArgs{PREREQ_PM}->{'Unix::Process'} = 0;
+      unless(-e File::Spec->catfile('', 'proc', getppid, 'cmdline'))
+      {
+        $WriteMakefileArgs{PREREQ_PM}->{'Unix::Process'} = 0;
+      }
     }
 
     if($^O eq 'MSWin32')
