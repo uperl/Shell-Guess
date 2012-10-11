@@ -85,6 +85,34 @@ this is cmd.exe.
 
 =back
 
+The intended use of this module is to enable a Perl developer to write 
+a script that generates shell configurations for the calling shell so they
+can be imported back into the calling shell using eval and backticks.  For
+example, if your script looks like this:
+
+ #!/usr/bin/perl
+ use Shell::Guess;
+ my $shell = Shell::Guess->running_shell;
+ if($shell->is_bourne)
+ {
+   print "export FOO=bar\n";
+ }
+ else($shell->is_c)
+ {
+   print "setenv FOO bar\n";
+ }
+ else
+ {
+   die "I don't support ", $shell->name, " shell";
+ }
+
+You can not import FOO into your bash or c shell like this:
+
+ % eval `perl script.pl`
+
+This module is designed to work with L<Shell::Config::Generate> for
+exactly this purpose.
+
 =head1 CLASS METHODS
 
 These class methods return an instance of Shell::Guess, which can then be 
