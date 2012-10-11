@@ -16,3 +16,5 @@ pod_spelling_system:
     - prereqs
     - FreeBSD
     - ps
+    - dscl
+    - proc

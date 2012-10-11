@@ -35,17 +35,54 @@ guessing an arbitrary user's login shell:
 
 =head1 DESCRIPTION
 
-Shell::Guess makes a reasonably aggressive attempt to determine the shell
-being employed by the user, either the shell that executed the perl script
-directly (the "running" shell), or the users' default login shell (the 
-"login" shell).  It does this by a variety of means available to it, depending 
-on the platform that it is running on, for example on Linux it will use the
-/proc filesystem to determine the running shell and getpwent to determine the
-login shell.  On Windows it will use the ComSpec environment variable to 
-differentiate between C<command.com> and C<cmd.exe>.  If Sell::Guess does
-not know enough about your platform to make an educated guess, it will use
-a platform fallback (bourne shell on UNIX, command.com on Windows 95, cmd.exe on
-Windows NT and dcl on OpenVMS, for example).
+Shell::Guess makes a reasonably aggressive attempt to determine the 
+shell being employed by the user, either the shell that executed the 
+perl script directly (the "running" shell), or the users' login shell 
+(the "login" shell).  It does this by a variety of means available to 
+it, depending on the platform that it is running on.
+
+=over 4
+
+=item * getpwent
+
+On UNIXy systems with getpwent, that can be used to determine the login
+shell.
+
+=item * dscl
+
+Under Mac OS X getpwent will typically not provide any useful information,
+so the dscl command is used instead.
+
+=item * proc file systems
+
+On UNIXy systems with a proc filesystems (such as Linux), Shell::Guess 
+will attempt to use that to determine the running shell.
+
+=item * ps
+
+On UNIXy systems without a proc filesystem, Shell::Guess will use the
+ps command to determine the running shell.
+
+=item * L<Win32::Process::Info> and L<Win32::Process::List>
+
+On Windows if these modules are installed they will be used to determine
+the running shell.  This method can differentiate between PowerShell,
+C<command.com> and C<cmd.exe>.
+
+=item * ComSpec
+
+If the above method is inconclusive, the ComSpec environment variable
+will be consulted to differentiate between C<command.com> or C<cmd.exe>
+(PowerShell cannot be detected in this manner).
+
+=item * reasonable defaults
+
+If the running or login shell cannot be otherwise determined, a reasonable
+default for your platform will be used as a fallback.  Under OpenVMS this is
+dcl, Windows 95/98 and MS-DOS this is command.com and Windows NT/2000/XP/Vista/7
+this is cmd.exe.
+
+=back
 
 =head1 CLASS METHODS
 
@@ -363,11 +400,6 @@ reliably.
 
 =item * Windows (Strawberry Perl)
 
-Can detect PowerShell, but only if optional prereqs L<Win32::Process::Info> and L<Win32::Process::List>
-are installed.  Otherwise will use ComSpec environment to guess the running shell.  On Windows NT
-style operating systems the login shell will be cmd and on Windows 95 style operating systems the
-login shell will be command.
-
 =item * MS-DOS (djgpp)
 
 =item * OpenVMS
@@ -376,8 +408,11 @@ Always detected as dcl (a more nuanced view of OpenVMS is probably possible, pat
 
 =back
 
-UNIXy platforms without a /proc filesystem will use L<Unix::Process> if installed, which will execute 
+UNIXy platforms without a proc filesystem will use L<Unix::Process> if installed, which will execute 
 ps to determine the running shell.
+
+It is pretty easy to fool the -E<gt>running_shell method by using fork, or if your Perl script
+is not otherwise being directly executed by the shell.
 
 Patches are welcome to make other platforms work more reliably.
 
