@@ -80,7 +80,7 @@ will be consulted to differentiate between C<command.com> or C<cmd.exe>
 If the running or login shell cannot be otherwise determined, a reasonable
 default for your platform will be used as a fallback.  Under OpenVMS this is
 dcl, Windows 95/98 and MS-DOS this is command.com and Windows NT/2000/XP/Vista/7
-this is cmd.exe.
+this is cmd.exe.  UNIXy platforms fallback to bourne shell.
 
 =back
 
