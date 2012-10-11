@@ -24,7 +24,7 @@ override _build_WriteMakefile_dump => sub {
 
     use File::Spec;
     
-    if(eval { getppid; 1 })
+    if($^O ne 'dos' && $^O ne 'VMS' && $^O ne 'MSWin32' && eval { getppid; 1 })
     {
       unless(-e File::Spec->catfile('', 'proc', getppid, 'cmdline'))
       {
