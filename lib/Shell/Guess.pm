@@ -98,10 +98,8 @@ sub running_shell
     { return __PACKAGE__->command_shell }
   }
 
-  if($^O eq 'VMS')
-  {
-    return __PACKAGE__->dcl_shell;
-  }
+  return __PACKAGE__->dcl_shell     if $^O eq 'VMS';
+  return __PACKAGE__->command_shell if $^O eq 'dos';
 
   my $shell = eval {
     open(my $fh, '<', File::Spec->catfile('', 'proc', getppid, 'cmdline')) || die;
@@ -141,10 +139,8 @@ sub login_shell
     { return __PACKAGE__->cmd_shell }
   }
 
-  if($^O eq 'VMS')
-  {
-    return __PACKAGE__->dcl_shell;
-  }
+  return __PACKAGE__->dcl_shell     if $^O eq 'VMS';
+  return __PACKAGE__->command_shell if $^O eq 'dos';
 
   my $username = shift || $ENV{USER} || $ENV{USERNAME} || $ENV{LOGNAME};
 
@@ -560,6 +556,8 @@ Can detect PowerShell, but only if optional prereqs L<Win32::Process::Info> and 
 are installed.  Otherwise will use ComSpec environment to guess the running shell.  On Windows NT
 style operating systems the login shell will be cmd and on Windows 95 style operating systems the
 login shell will be command.
+
+=item * MS-DOS (djgpp)
 
 =item * OpenVMS
 

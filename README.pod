@@ -368,6 +368,8 @@ are installed.  Otherwise will use ComSpec environment to guess the running shel
 style operating systems the login shell will be cmd and on Windows 95 style operating systems the
 login shell will be command.
 
+=item * MS-DOS (djgpp)
+
 =item * OpenVMS
 
 Always detected as dcl (a more nuanced view of OpenVMS is probably possible, patches welcome).
