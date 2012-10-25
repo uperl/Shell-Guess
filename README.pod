@@ -102,7 +102,7 @@ or C<source>.  For example, if your script looks like this:
    die "I don't support ", $shell->name, " shell";
  }
 
-You can not import FOO into your bash or c shell like this:
+You can then import FOO into your bash or c shell like this:
 
  % eval `perl script.pl`
 
