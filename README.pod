@@ -14,12 +14,9 @@ guessing shell which called the Perl script:
 
  use Shell::Guess;
  my $shell = Shell::Guess->running_shell;
- if($shell->is_c)
- {
+ if($shell->is_c) {
    print "setenv FOO bar\n";
- }
- elsif($shell->is_bourne)
- {
+ } elsif($shell->is_bourne) {
    print "export FOO=bar\n";
  }
 
