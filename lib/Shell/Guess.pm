@@ -107,8 +107,8 @@ or, you can write the output to a configuration file and source it:
  % perl script.pl > foo.sh
  % source foo.sh
 
-This module is designed to work with L<Shell::Config::Generate> for
-exactly this purpose.
+L<Shell::Config::Generate> provides a portable interface for generating
+such shell configurations, and is designed to work with this module.
 
 =head1 CLASS METHODS
 
