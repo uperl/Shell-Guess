@@ -4,6 +4,8 @@ use strict;
 use warnings;
 use File::Spec;
 
+# TODO: see where we can use P9Y::ProcessTable
+
 # ABSTRACT: make an educated guess about the shell in use
 # VERSION
 
