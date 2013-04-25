@@ -8,6 +8,7 @@ use File::Spec;
 my ##{ 
   my $write_makefile_args = $plugin->write_makefile_args;
   delete $write_makefile_args->{MIN_PERL_VERSION};
+  use Data::Dumper;
    my $makefile_args_dumper = Data::Dumper->new(
      [ $write_makefile_args ],
      [ '*WriteMakefileArgs' ],
