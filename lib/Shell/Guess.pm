@@ -610,6 +610,8 @@ sub _unixy_shells
   { return __PACKAGE__->bash_shell   }
   elsif($shell =~ /zsh$/)
   { return __PACKAGE__->z_shell      }
+  elsif($shell =~ /fish$/)
+  { return __PACKAGE__->fish_shell   }
   elsif($shell =~ /sh$/)
   { return __PACKAGE__->bourne_shell }
   else
