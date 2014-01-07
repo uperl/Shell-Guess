@@ -3,12 +3,12 @@ use warnings;
 use Test::More tests => 16;
 use Shell::Guess;
 
-my $shell = eval { Shell::Guess->cmd_shell };
+my $shell = eval { Shell::Guess->fish_shell };
 diag $@ if $@;
 
 isa_ok $shell, 'Shell::Guess';
 
-is eval { $shell->is_cmd     }, 1, "cmd = 1";
+is eval { $shell->is_cmd     }, 0, "cmd = 0";
 diag $@ if $@;
 is eval { $shell->is_command }, 0, "command = 0";
 diag $@ if $@;
@@ -16,15 +16,15 @@ is eval { $shell->is_dcl     }, 0, "dcl = 0";
 diag $@ if $@;
 is eval { $shell->is_bash    }, 0, "bash = 0";
 diag $@ if $@;
-is eval { $shell->is_fish    }, 0, "fish = 0";
+is eval { $shell->is_fish    }, 1, "fish = 1";
 diag $@ if $@;
 is eval { $shell->is_korn    }, 0, "korn = 0";
 diag $@ if $@;
 is eval { $shell->is_c       }, 0, "c = 0";
 diag $@ if $@;
-is eval { $shell->is_win32   }, 1, "win32 = 1";
+is eval { $shell->is_win32   }, 0, "win32 = 0";
 diag $@ if $@;
-is eval { $shell->is_unix    }, 0, "unix = 0";
+is eval { $shell->is_unix    }, 1, "unix = 1";
 diag $@ if $@;
 is eval { $shell->is_vms     }, 0, "vms = 0";
 diag $@ if $@;
@@ -37,4 +37,4 @@ diag $@ if $@;
 is eval { $shell->is_z       }, 0, "z = 0";
 diag $@ if $@;
 
-is $shell->default_location,  'C:\\Windows\\system32\\cmd.exe', 'default_location = C:\\Windows\\system32\\cmd.exe';
+is $shell->default_location,  undef, 'default_location = undef';

@@ -370,6 +370,26 @@ All other instance methods will return false
 
 sub dcl_shell { bless { dcl => 1, vms => 1, name => 'dcl' }, __PACKAGE__ }
 
+=head2 Shell::Guess-E<gt>fish_shell
+
+Returns an instance of Shell::Guess for the fish shell.
+
+The following instance methods will return:
+
+=over 4
+
+=item * $shell-E<gt>name = fish
+
+=item * $shell-E<gt>is_fish = 1
+
+=item * $shell-E<gt>is_unix = 1
+
+=back
+
+=cut
+
+sub fish_shell { bless { fish => 1, unix => 1, name => 'fish' }, __PACKAGE__ }
+
 =head2 Shell::Guess-E<gt>korn_shell
 
 Returns an instance of Shell::Guess for the korn shell.
@@ -506,6 +526,10 @@ Returns true if the shell is the Windows cmd.com shell.
 
 Returns true if the shell is the OpenVMS dcl shell.
 
+=head2 $shell-E<gt>is_fish
+
+Returns true if the shell is Fish shell.
+
 =head2 $shell-E<gt>is_korn
 
 Returns true if the shell is the korn shell.
@@ -536,7 +560,7 @@ Returns true if the shell is zsh
 
 =cut
 
-foreach my $type (qw( cmd command dcl bash korn c win32 unix vms bourne tc power z ))
+foreach my $type (qw( cmd command dcl bash fish korn c win32 unix vms bourne tc power z ))
 {
   eval qq{
     sub is_$type

@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test::More tests => 15;
+use Test::More tests => 16;
 use Shell::Guess;
 
 my $shell = eval { Shell::Guess->command_shell };
@@ -15,6 +15,8 @@ diag $@ if $@;
 is eval { $shell->is_dcl     }, 0, "dcl = 0";
 diag $@ if $@;
 is eval { $shell->is_bash    }, 0, "bash = 0";
+diag $@ if $@;
+is eval { $shell->is_fish    }, 0, "fish = 0";
 diag $@ if $@;
 is eval { $shell->is_korn    }, 0, "korn = 0";
 diag $@ if $@;
