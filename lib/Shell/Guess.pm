@@ -169,7 +169,7 @@ sub running_shell
     open(my $fh, '<', File::Spec->catfile('', 'proc', getppid, 'cmdline')) || die;
     my $command_line = <$fh>;
     close $fh;
-    $command_line =~ s/\0$//;
+    $command_line =~ s/\0.*$//;
     _unixy_shells($command_line);
   }
   
