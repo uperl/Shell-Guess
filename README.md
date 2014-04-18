@@ -1,6 +1,6 @@
 # Shell::Guess [![Build Status](https://secure.travis-ci.org/plicease/Shell-Guess.png)](http://travis-ci.org/plicease/Shell-Guess)
 
-make an educated guess about the shell in use
+Make an educated guess about the shell in use
 
 # SYNOPSIS
 
