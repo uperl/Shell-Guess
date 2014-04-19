@@ -1,3 +1,2 @@
-File::Spec
 Module::Build
 Test::More

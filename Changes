@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - rm explicit dep on File::Spec due to typo
 
 0.02_02   2014-04-19 08:03:51 -0400
   - mark distribution as having dynamic_config as it ought to
