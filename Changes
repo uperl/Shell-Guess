@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - mark distribution as having dynamic_config as it ought to
 
 0.02_01   2014-04-18 16:53:08 -0400
   - only use argv[0] from command line for running_shell guess (thanks Buddy Burden GH#3)
