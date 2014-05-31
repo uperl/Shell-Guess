@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - avoid possible warnings on /proc read failure
 
 0.03      2014-04-20 04:54:22 -0400
   - promote to production

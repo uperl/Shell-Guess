@@ -168,6 +168,7 @@ sub running_shell
   my $shell = eval {
     open(my $fh, '<', File::Spec->catfile('', 'proc', getppid, 'cmdline')) || die;
     my $command_line = <$fh>;
+    die unless defined $command_line; # don't spew warnings if read failed
     close $fh;
     $command_line =~ s/\0.*$//;
     _unixy_shells($command_line);
