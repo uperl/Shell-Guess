@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - fix for running_shell method on Solaris
 
 0.04      2014-05-31 06:35:18 -0400
   - avoid possible warnings on /proc read failure

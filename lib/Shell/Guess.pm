@@ -176,7 +176,8 @@ sub running_shell
   
   || eval {
     require Unix::Process;
-    my($command) = map { s/\s+.*$//; $_ } Unix::Process->command(getppid);
+    my $method = $^O eq 'solaris' ? 'comm' : 'command';
+    my($command) = map { s/\s+.*$//; $_ } Unix::Process->$method(getppid);
     _unixy_shells($command);
   };
   
