@@ -3,6 +3,7 @@ package My::ModuleBuild;
 use strict;
 use warnings;
 use base qw( Module::Build );
+use File::Spec;
 
 sub new
 {
