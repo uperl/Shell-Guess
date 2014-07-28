@@ -644,6 +644,8 @@ reliably.
 
 =item * Windows (Strawberry Perl)
 
+=item * Solaris (x86)
+
 =item * MS-DOS (djgpp)
 
 =item * OpenVMS

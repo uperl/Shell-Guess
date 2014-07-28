@@ -352,6 +352,7 @@ reliably.
 - FreeBSD
 - Mac OS X
 - Windows (Strawberry Perl)
+- Solaris (x86)
 - MS-DOS (djgpp)
 - OpenVMS
 
