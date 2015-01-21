@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - On Windows, use Win32::Getppid instead of Win32::Process::Info
+    the latter was failing on Strawberry 64 and is overkill for
+    the needs of this module.
 
 0.05      2014-06-16 09:39:30 -0400
   - fix for running_shell method on Solaris
