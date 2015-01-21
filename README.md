@@ -54,7 +54,7 @@ it, depending on the platform that it is running on.
     On UNIXy systems without a proc filesystem, Shell::Guess will use the
     ps command to determine the running shell.
 
-- [Win32::Process::Info](https://metacpan.org/pod/Win32::Process::Info) and [Win32::Process::List](https://metacpan.org/pod/Win32::Process::List)
+- [Win32::Getppid](https://metacpan.org/pod/Win32::Getppid) and [Win32::Process::List](https://metacpan.org/pod/Win32::Process::List)
 
     On Windows if these modules are installed they will be used to determine
     the running shell.  This method can differentiate between PowerShell,

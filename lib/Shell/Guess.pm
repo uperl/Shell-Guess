@@ -63,7 +63,7 @@ will attempt to use that to determine the running shell.
 On UNIXy systems without a proc filesystem, Shell::Guess will use the
 ps command to determine the running shell.
 
-=item * L<Win32::Process::Info> and L<Win32::Process::List>
+=item * L<Win32::Getppid> and L<Win32::Process::List>
 
 On Windows if these modules are installed they will be used to determine
 the running shell.  This method can differentiate between PowerShell,
@@ -127,11 +127,8 @@ it will return the login shell.
 
 sub _win32_getppid
 {
-  require Win32::Process::Info;
-  Win32::Process::Info->import;
-  my $my_pid = Win32::GetCurrentProcessId();
-  my($parent_pid) = map { $_->{ParentProcessId} } grep { $_->{ProcessId} == $my_pid } Win32::Process::Info->new->GetProcInfo;
-  return $parent_pid;
+  require Win32::Getppid;
+  Win32::Getppid::getppid();
 }
 
 sub running_shell

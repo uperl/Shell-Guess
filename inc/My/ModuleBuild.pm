@@ -19,7 +19,7 @@ sub new
 
   if($^O eq 'MSWin32')
   {
-    $args{requires}->{'Win32::Process::Info'} = 0;
+    $args{requires}->{'Win32::Getppid'} = 0;
     $args{requires}->{'Win32::Process::List'} = 0;
   }
 
