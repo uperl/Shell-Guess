@@ -368,9 +368,9 @@ Patches are welcome to make other platforms work more reliably.
 
 # AUTHOR
 
-author: Graham Ollis <plicease@cpan.org>
+Author: Graham Ollis <plicease@cpan.org>
 
-contributors:
+Contributors:
 
 Buddy Burden (BAREFOOT)
 
