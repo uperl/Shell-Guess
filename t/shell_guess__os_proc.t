@@ -20,13 +20,12 @@ is(Shell::Guess->login_shell->is_bourne, 1, 'faked out a bourne shell');
 
 my $testlib = File::Spec->catdir($FindBin::Bin, 'testlib');
 
-$ENV{PERL5OPT} = "-I$testlib -MFakeLogin";
+$ENV{PERL5OPT} = "-It/lib -MFakeLogin";
 
 like `$^X -MShell::Guess -e 'print Shell::Guess->login_shell->name, "\n"'`, qr{bourne}, 'sub process still found fake bourne shell';
 
-my $print_guess = File::Spec->catfile($testlib, 'print_guess.pl');
 my $lib = -d File::Spec->catdir($FindBin::Bin, File::Spec->updir, 'blib') ? '-Mblib' : "-I" . File::Spec->catdir($FindBin::Bin, File::Spec->updir, 'lib');
 
 note "lib = $lib";
 
-like `$csh -c '$^X $lib $print_guess'`, qr{c}, 'sub process found real c shell';
+like `$csh -c '$^X $lib corpus/print_guess.pl'`, qr{c}, 'sub process found real c shell';
