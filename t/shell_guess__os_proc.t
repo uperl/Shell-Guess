@@ -2,8 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 use File::Spec;
-use FindBin ();
-use lib File::Spec->catdir($FindBin::Bin, 'testlib');
+use lib 't/lib';
 use FakeLogin;
 use Shell::Guess;
 
