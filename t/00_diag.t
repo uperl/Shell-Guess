@@ -10,7 +10,7 @@ my %modules;
 my $post_diag;
 
 $modules{$_} = $_ for qw(
-  Module::Build
+  ExtUtils::MakeMaker
   Test::More
   Unix::Process
   Win32::Getppid
