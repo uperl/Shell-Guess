@@ -18,13 +18,11 @@ plan tests => 3;
 
 is(Shell::Guess->login_shell->is_bourne, 1, 'faked out a bourne shell');
 
-my $testlib = File::Spec->catdir($FindBin::Bin, 'testlib');
-
 $ENV{PERL5OPT} = "-It/lib -MFakeLogin";
 
 like `$^X -MShell::Guess -e 'print Shell::Guess->login_shell->name, "\n"'`, qr{bourne}, 'sub process still found fake bourne shell';
 
-my $lib = -d File::Spec->catdir($FindBin::Bin, File::Spec->updir, 'blib') ? '-Mblib' : "-I" . File::Spec->catdir($FindBin::Bin, File::Spec->updir, 'lib');
+my $lib = -d File::Spec->catdir('blib') ? '-Mblib' : "-I" . File::Spec->catdir('lib');
 
 note "lib = $lib";
 
