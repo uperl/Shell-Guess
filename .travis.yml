@@ -6,7 +6,7 @@ install:
   - perlbrew list
   - cpanm -n Test::More File::Spec
 
-script: HARNESS_IS_VERBOSE=1 prove -lvr t xt
+script: HARNESS_IS_VERBOSE=1 prove -lvr t
 
 perl:
   - "5.26"
