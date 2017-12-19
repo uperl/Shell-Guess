@@ -433,6 +433,8 @@ Contributors:
 
 Buddy Burden (BAREFOOT)
 
+Julien Fiegehenn (SIMBABQUE)
+
 # COPYRIGHT AND LICENSE
 
 This software is copyright (c) 2012 by Graham Ollis.

@@ -23,3 +23,7 @@ perl:
   - "5.8"
 
 sudo: false
+
+env:
+  global:
+    - PERL_USE_UNSAFE_INC=0
