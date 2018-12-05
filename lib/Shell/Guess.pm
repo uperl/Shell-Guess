@@ -221,6 +221,11 @@ sub login_shell
 
   my $username = shift || $ENV{USER} || $ENV{USERNAME} || $ENV{LOGNAME};
 
+  unless(defined $username)
+  {
+    $username = eval { getpwuid $< };
+  }
+
   if($^O eq 'darwin')
   {
     my $command = `dscl . -read /Users/$username UserShell`;
