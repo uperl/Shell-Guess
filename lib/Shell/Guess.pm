@@ -679,6 +679,8 @@ sub _unixy_shells
   { return __PACKAGE__->z_shell      }
   elsif($shell =~ /fish$/)
   { return __PACKAGE__->fish_shell   }
+  elsif($shell =~ /pwsh$/)
+  { return __PACKAGE__->power_shell  }
   elsif($shell =~ /sh$/)
   { return __PACKAGE__->bourne_shell }
   else

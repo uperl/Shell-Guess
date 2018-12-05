@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Detect PowerShell on Unix (pwsh)
 
 0.08      2017-12-19 11:30:36 -0500
   - Use /proc/[pid]/comm as a method for guessing the shell in addition
