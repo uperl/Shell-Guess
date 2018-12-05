@@ -245,7 +245,7 @@ All other instance methods will return false
 
     my $shell = Shell::Guess->power_shell;
 
-Returns an instance of Shell::Guess for Windows PowerShell.
+Returns an instance of Shell::Guess for Microsoft PowerShell (either for Windows `powershell.exe` or Unix `pwsh`).
 
 The following instance methods will return:
 
@@ -375,7 +375,7 @@ Returns true if the shell is traditionally an OpenVMS shell (e.g. dcl)
 
     my $bool = $shell->is_win32;
 
-Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe)
+Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe, powershell.exe, pwsh)
 
 ## is\_z
 

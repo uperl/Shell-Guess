@@ -449,7 +449,7 @@ sub korn_shell { bless { korn => 1, bourne => 1, unix => 1, name => 'korn', defa
 
   my $shell = Shell::Guess->power_shell;
 
-Returns an instance of Shell::Guess for Windows PowerShell.
+Returns an instance of Shell::Guess for Microsoft PowerShell (either for Windows C<powershell.exe> or Unix C<pwsh>).
 
 The following instance methods will return:
 
@@ -613,7 +613,7 @@ Returns true if the shell is traditionally an OpenVMS shell (e.g. dcl)
 
  my $bool = $shell->is_win32;
 
-Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe)
+Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe, powershell.exe, pwsh)
 
 =head2 is_z
 
