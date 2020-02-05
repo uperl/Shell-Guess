@@ -1,4 +1,4 @@
-# Shell::Guess [![Build Status](https://secure.travis-ci.org/plicease/Shell-Guess.png)](http://travis-ci.org/plicease/Shell-Guess)
+# Shell::Guess [![Build Status](https://secure.travis-ci.org/plicease/Shell-Guess.png)](http://travis-ci.org/plicease/Shell-Guess) ![windows](https://github.com/plicease/Shell-Guess/workflows/windows/badge.svg) ![macos](https://github.com/plicease/Shell-Guess/workflows/macos/badge.svg)
 
 Make an educated guess about the shell in use
 
@@ -34,10 +34,10 @@ print $shell->name, "\n";
 
 # DESCRIPTION
 
-Shell::Guess makes a reasonably aggressive attempt to determine the 
-shell being employed by the user, either the shell that executed the 
-perl script directly (the "running" shell), or the users' login shell 
-(the "login" shell).  It does this by a variety of means available to 
+Shell::Guess makes a reasonably aggressive attempt to determine the
+shell being employed by the user, either the shell that executed the
+perl script directly (the "running" shell), or the users' login shell
+(the "login" shell).  It does this by a variety of means available to
 it, depending on the platform that it is running on.
 
 - getpwent
@@ -52,7 +52,7 @@ it, depending on the platform that it is running on.
 
 - proc file systems
 
-    On UNIXy systems with a proc filesystems (such as Linux), Shell::Guess 
+    On UNIXy systems with a proc filesystems (such as Linux), Shell::Guess
     will attempt to use that to determine the running shell.
 
 - ps
@@ -79,7 +79,7 @@ it, depending on the platform that it is running on.
     dcl, Windows 95/98 and MS-DOS this is command.com and Windows NT/2000/XP/Vista/7
     this is cmd.exe.  UNIXy platforms fallback to bourne shell.
 
-The intended use of this module is to enable a Perl developer to write 
+The intended use of this module is to enable a Perl developer to write
 a script that generates shell configurations for the calling shell so they
 can be imported back into the calling shell using `eval` and backticks
 or `source`.  For example, if your script looks like this:
@@ -115,7 +115,7 @@ such shell configurations, and is designed to work with this module.
 
 # CLASS METHODS
 
-These class methods return an instance of Shell::Guess, which can then be 
+These class methods return an instance of Shell::Guess, which can then be
 interrogated by the instance methods in the next section below.
 
 ## running\_shell
@@ -472,9 +472,9 @@ and /bin/csh for c shell.  May not be defined for all shells.
 
 # CAVEATS
 
-Shell::Guess shouldn't ever die or crash, instead it will attempt to make a guess or use a fallback 
-about either the login or running shell even on unsupported operating systems.  The fallback is the 
-most common shell on the particular platform that you are using, so on UNIXy platforms the fallback 
+Shell::Guess shouldn't ever die or crash, instead it will attempt to make a guess or use a fallback
+about either the login or running shell even on unsupported operating systems.  The fallback is the
+most common shell on the particular platform that you are using, so on UNIXy platforms the fallback
 is bourne, and on OpenVMS the fallback is dcl.
 
 These are the operating systems that have been tested in development and are most likely to guess
@@ -491,7 +491,7 @@ reliably.
 
     Always detected as dcl (a more nuanced view of OpenVMS is probably possible, patches welcome).
 
-UNIXy platforms without a proc filesystem will use [Unix::Process](https://metacpan.org/pod/Unix::Process) if installed, which will execute 
+UNIXy platforms without a proc filesystem will use [Unix::Process](https://metacpan.org/pod/Unix::Process) if installed, which will execute
 ps to determine the running shell.
 
 It is pretty easy to fool the ->running\_shell method by using fork, or if your Perl script
