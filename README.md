@@ -6,25 +6,31 @@ Make an educated guess about the shell in use
 
 guessing shell which called the Perl script:
 
-    use Shell::Guess;
-    my $shell = Shell::Guess->running_shell;
-    if($shell->is_c) {
-      print "setenv FOO bar\n";
-    } elsif($shell->is_bourne) {
-      print "export FOO=bar\n";
-    }
+```perl
+use Shell::Guess;
+my $shell = Shell::Guess->running_shell;
+if($shell->is_c) {
+  print "setenv FOO bar\n";
+} elsif($shell->is_bourne) {
+  print "export FOO=bar\n";
+}
+```
 
 guessing the current user's login shell:
 
-    use Shell::Guess;
-    my $shell = Shell::Guess->login_shell;
-    print $shell->name, "\n";
+```perl
+use Shell::Guess;
+my $shell = Shell::Guess->login_shell;
+print $shell->name, "\n";
+```
 
 guessing an arbitrary user's login shell:
 
-    use Shell::Guess;
-    my $shell = Shell::Guess->login_shell('bob');
-    print $shell->name, "\n";
+```perl
+use Shell::Guess;
+my $shell = Shell::Guess->login_shell('bob');
+print $shell->name, "\n";
+```
 
 # DESCRIPTION
 
@@ -78,25 +84,31 @@ a script that generates shell configurations for the calling shell so they
 can be imported back into the calling shell using `eval` and backticks
 or `source`.  For example, if your script looks like this:
 
-    #!/usr/bin/perl
-    use Shell::Guess;
-    my $shell = Shell::Guess->running_shell;
-    if($shell->is_bourne) {
-      print "export FOO=bar\n";
-    } else($shell->is_c) {
-      print "setenv FOO bar\n";
-    } else {
-      die "I don't support ", $shell->name, " shell";
-    }
+```perl
+#!/usr/bin/perl
+use Shell::Guess;
+my $shell = Shell::Guess->running_shell;
+if($shell->is_bourne) {
+  print "export FOO=bar\n";
+} else($shell->is_c) {
+  print "setenv FOO bar\n";
+} else {
+  die "I don't support ", $shell->name, " shell";
+}
+```
 
 You can then import FOO into your bash or c shell like this:
 
-    % eval `perl script.pl`
+```
+% eval `perl script.pl`
+```
 
 or, you can write the output to a configuration file and source it:
 
-    % perl script.pl > foo.sh
-    % source foo.sh
+```
+% perl script.pl > foo.sh
+% source foo.sh
+```
 
 [Shell::Config::Generate](https://metacpan.org/pod/Shell::Config::Generate) provides a portable interface for generating
 such shell configurations, and is designed to work with this module.
@@ -108,7 +120,9 @@ interrogated by the instance methods in the next section below.
 
 ## running\_shell
 
-    my $shell = Shell::Guess->running_shell;
+```perl
+my $shell = Shell::Guess->running_shell;
+```
 
 Returns an instance of Shell::Guess based on the shell which directly
 started the current Perl script.  If the running shell cannot be determined,
@@ -116,8 +130,10 @@ it will return the login shell.
 
 ## login\_shell
 
-    my $shell = Shell::Guess->login_shell;
-    my $shell = Shell::Guess->login_shell( $username )
+```perl
+my $shell = Shell::Guess->login_shell;
+my $shell = Shell::Guess->login_shell( $username )
+```
 
 Returns an instance of Shell::Guess for the given user.  If no username is specified then
 the current user will be used.  If no shell can be guessed then a reasonable fallback
@@ -125,7 +141,9 @@ will be chosen based on your platform.
 
 ## bash\_shell
 
-    my $shell = Shell::Guess->bash_shell;
+```perl
+my $shell = Shell::Guess->bash_shell;
+```
 
 Returns an instance of Shell::Guess for bash.
 
@@ -141,7 +159,9 @@ All other instance methods will return false
 
 ## bourne\_shell
 
-    my $shell = Shell::Guess->bourne_shell;
+```perl
+my $shell = Shell::Guess->bourne_shell;
+```
 
 Returns an instance of Shell::Guess for the bourne shell.
 
@@ -156,7 +176,9 @@ All other instance methods will return false
 
 ## c\_shell
 
-    my $shell = Shell::Guess->c_shell;
+```perl
+my $shell = Shell::Guess->c_shell;
+```
 
 Returns an instance of Shell::Guess for c shell.
 
@@ -171,7 +193,9 @@ All other instance methods will return false
 
 ## cmd\_shell
 
-    my $shell = Shell::Guess->cmd_shell;
+```perl
+my $shell = Shell::Guess->cmd_shell;
+```
 
 Returns an instance of Shell::Guess for the Windows NT cmd shell (cmd.exe).
 
@@ -186,7 +210,9 @@ All other instance methods will return false
 
 ## command\_shell
 
-    my $shell = Shell::Guess->command_shell;
+```perl
+my $shell = Shell::Guess->command_shell;
+```
 
 Returns an instance of Shell::Guess for the Windows 95 command shell (command.com).
 
@@ -201,7 +227,9 @@ All other instance methods will return false
 
 ## dcl\_shell
 
-    my $shell = Shell::Guess->dcl_shell;
+```perl
+my $shell = Shell::Guess->dcl_shell;
+```
 
 Returns an instance of Shell::Guess for the OpenVMS dcl shell.
 
@@ -215,7 +243,9 @@ All other instance methods will return false
 
 ## fish\_shell
 
-    my $shell = Shell::Guess->fish_shell;
+```perl
+my $shell = Shell::Guess->fish_shell;
+```
 
 Returns an instance of Shell::Guess for the fish shell.
 
@@ -227,7 +257,9 @@ The following instance methods will return:
 
 ## korn\_shell
 
-    my $shell = Shell::Guess->korn_shell;
+```perl
+my $shell = Shell::Guess->korn_shell;
+```
 
 Returns an instance of Shell::Guess for the korn shell.
 
@@ -243,7 +275,9 @@ All other instance methods will return false
 
 ## power\_shell
 
-    my $shell = Shell::Guess->power_shell;
+```perl
+my $shell = Shell::Guess->power_shell;
+```
 
 Returns an instance of Shell::Guess for Microsoft PowerShell (either for Windows `powershell.exe` or Unix `pwsh`).
 
@@ -257,7 +291,9 @@ All other instance methods will return false
 
 ## tc\_shell
 
-    my $shell = Shell::Guess->tc_shell;
+```perl
+my $shell = Shell::Guess->tc_shell;
+```
 
 Returns an instance of Shell::Guess for tcsh.
 
@@ -273,7 +309,9 @@ All other instance methods will return false
 
 ## z\_shell
 
-    my $shell = Shell::Guess->z_shell
+```perl
+my $shell = Shell::Guess->z_shell
+```
 
 Returns an instance of Shell::Guess for zsh.
 
@@ -293,105 +331,141 @@ The normal way to call these is by calling them on the result of either
 _running\_shell_ or _login\_shell_, but they can also be called as class
 methods, in which case the currently running shell will be used, so
 
-    Shell::Guess->is_bourne
+```
+Shell::Guess->is_bourne
+```
 
 is the same as
 
-    Shell::Guess->running_shell->is_bourne
+```
+Shell::Guess->running_shell->is_bourne
+```
 
 ## is\_bash
 
-    my $bool = $shell->is_bash;
+```perl
+my $bool = $shell->is_bash;
+```
 
 Returns true if the shell is bash.
 
 ## is\_bourne
 
-    my $bool = $shell->is_bourne;
+```perl
+my $bool = $shell->is_bourne;
+```
 
 Returns true if the shell is the bourne shell, or a shell which supports bourne syntax (e.g. bash or korn).
 
 ## is\_c
 
-    my $bool = $shell->is_c;
+```perl
+my $bool = $shell->is_c;
+```
 
 Returns true if the shell is csh, or a shell which supports csh syntax (e.g. tcsh).
 
 ## is\_cmd
 
-    my $bool = $shell->is_cmd;
+```perl
+my $bool = $shell->is_cmd;
+```
 
 Returns true if the shell is the Windows command.com shell.
 
 ## is\_command
 
-    my $bool = $shell->is_command;
+```perl
+my $bool = $shell->is_command;
+```
 
 Returns true if the shell is the Windows cmd.com shell.
 
 ## is\_dcl
 
-    my $bool = $shell->is_dcl;
+```perl
+my $bool = $shell->is_dcl;
+```
 
 Returns true if the shell is the OpenVMS dcl shell.
 
 ## is\_fish
 
-    my $bool = $shell->is_fish;
+```perl
+my $bool = $shell->is_fish;
+```
 
 Returns true if the shell is Fish shell.
 
 ## is\_korn
 
-    my $bool = $shell->is_korn;
+```perl
+my $bool = $shell->is_korn;
+```
 
 Returns true if the shell is the korn shell.
 
 ## is\_power
 
-    my $bool = $shell->is_power;
+```perl
+my $bool = $shell->is_power;
+```
 
 Returns true if the shell is Windows PowerShell.
 
 ## is\_tc
 
-    my $bool = $shell->is_tc;
+```perl
+my $bool = $shell->is_tc;
+```
 
 Returns true if the shell is tcsh.
 
 ## is\_unix
 
-    my $bool = $shell->is_unix;
+```perl
+my $bool = $shell->is_unix;
+```
 
 Returns true if the shell is traditionally a UNIX shell (e.g. bourne, bash, korn)
 
 ## is\_vms
 
-    my $bool = $shell->is_vms;
+```perl
+my $bool = $shell->is_vms;
+```
 
 Returns true if the shell is traditionally an OpenVMS shell (e.g. dcl)
 
 ## is\_win32
 
-    my $bool = $shell->is_win32;
+```perl
+my $bool = $shell->is_win32;
+```
 
 Returns true if the shell is traditionally a Windows shell (command.com, cmd.exe, powershell.exe, pwsh)
 
 ## is\_z
 
-    my $bool = $shell->is_z;
+```perl
+my $bool = $shell->is_z;
+```
 
 Returns true if the shell is zsh
 
 ## name
 
-    my $name = $shell->name;
+```perl
+my $name = $shell->name;
+```
 
 Returns the name of the shell.
 
 ## default\_location
 
-    my $location = $shell->default_location;
+```perl
+my $location = $shell->default_location;
+```
 
 The usual location for this shell, for example /bin/sh for bourne shell
 and /bin/csh for c shell.  May not be defined for all shells.
