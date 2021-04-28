@@ -1,4 +1,4 @@
-# Shell::Guess [![Build Status](https://secure.travis-ci.org/plicease/Shell-Guess.png)](http://travis-ci.org/plicease/Shell-Guess) ![windows](https://github.com/plicease/Shell-Guess/workflows/windows/badge.svg) ![macos](https://github.com/plicease/Shell-Guess/workflows/macos/badge.svg)
+# Shell::Guess ![linux](https://github.com/uperl/Shell-Guess/workflows/linux/badge.svg) ![windows](https://github.com/uperl/Shell-Guess/workflows/windows/badge.svg) ![macos](https://github.com/uperl/Shell-Guess/workflows/macos/badge.svg) ![cygwin](https://github.com/uperl/Shell-Guess/workflows/cygwin/badge.svg) ![msys2-mingw](https://github.com/uperl/Shell-Guess/workflows/msys2-mingw/badge.svg)
 
 Make an educated guess about the shell in use
 
