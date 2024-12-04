@@ -1,4 +1,4 @@
-# Shell::Guess ![linux](https://github.com/uperl/Shell-Guess/workflows/linux/badge.svg) ![windows](https://github.com/uperl/Shell-Guess/workflows/windows/badge.svg) ![macos](https://github.com/uperl/Shell-Guess/workflows/macos/badge.svg) ![cygwin](https://github.com/uperl/Shell-Guess/workflows/cygwin/badge.svg) ![msys2-mingw](https://github.com/uperl/Shell-Guess/workflows/msys2-mingw/badge.svg)
+# Shell::Guess ![static](https://github.com/uperl/Shell-Guess/workflows/static/badge.svg) ![linux](https://github.com/uperl/Shell-Guess/workflows/linux/badge.svg) ![windows](https://github.com/uperl/Shell-Guess/workflows/windows/badge.svg) ![macos](https://github.com/uperl/Shell-Guess/workflows/macos/badge.svg)
 
 Make an educated guess about the shell in use
 
@@ -511,7 +511,7 @@ Julien Fiegehenn (SIMBABQUE)
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by Graham Ollis.
+This software is copyright (c) 2012-2023 by Graham Ollis.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
