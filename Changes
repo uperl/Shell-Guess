@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Supress warning in Makefile.PL about calling getppid in void context (gh#12, gh#13)
 
 0.09      2018-12-06 21:07:21 -0500
   - Detect PowerShell on Unix (pwsh)
